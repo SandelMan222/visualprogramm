@@ -1,30 +1,42 @@
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
-        // Количество объектов: поставь своё число (зависит от номера в группе).
-        // По умолчанию поставил 3 — если у тебя другой номер в списке, измени numHumans.
-        int numHumans = 3;
+    public static void main(String[] args) {
+        int simulationTime = 10; // время симуляции в "шагах"
 
-        Human[] humans = new Human[numHumans];
+        // Создаем людей (Human)
+        Human h1 = new Human("Иванов Иван", 20, 1.0, 0, 0);
+        Human h2 = new Human("Петров Петр", 22, 1.2, 5, 5);
 
-        // Создаём людей. Можно поменять ФИО/возраст/скорости.
-        humans[0] = new Human("Бенескул Игнат Максимович", 20, 1.0, 0.0, 0.0);
-        if (numHumans > 1) humans[1] = new Human("Иванов Иван", 21, 1.2, 1.0, 0.0);
-        if (numHumans > 2) humans[2] = new Human("Петров Петр", 19, 0.8, -1.0, 0.5);
-        // при необходимости добавь ещё объектов
+        // Создаем водителя (Driver), который движется прямо
+        Driver d1 = new Driver("Сидоров Сидор", 30, 1.5, 10, 10, Math.PI / 4); // угол = 45 градусов
 
-        int simulationTimeSec = 10; // время симуляции в секундах (измени если нужно)
+        // Запускаем параллельные потоки
+        Thread t1 = new Thread(() -> simulate(h1, simulationTime));
+        Thread t2 = new Thread(() -> simulate(h2, simulationTime));
+        Thread t3 = new Thread(() -> simulate(d1, simulationTime));
 
-        System.out.println("Simulation start — Random Walk. Time: " + simulationTimeSec + " s");
-        for (int t = 0; t < simulationTimeSec; t++) {
-            System.out.println("t = " + t + "s");
-            for (Human h : humans) {
-                if (h == null) continue;
-                h.move();
-                System.out.println(h);
-            }
-            System.out.println("-----");
-            Thread.sleep(1000); // пауза 1 секунда между шагами
+        t1.start();
+        t2.start();
+        t3.start();
+
+        try {
+            t1.join();
+            t2.join();
+            t3.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        System.out.println("Simulation finished.");
+    }
+
+    private static void simulate(Human human, int time) {
+        for (int t = 0; t < time; t++) {
+            human.move();
+            System.out.printf("%s: шаг %d, позиция (%.2f, %.2f)%n",
+                    human.getFio(), t + 1, human.getX(), human.getY());
+            try {
+                Thread.sleep(500); // задержка для наглядности
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
