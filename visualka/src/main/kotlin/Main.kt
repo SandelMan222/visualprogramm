@@ -1,16 +1,33 @@
-package org.example
+package org.example // Обязательный пакет, чтобы код работал
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+    val groupNumber = 2
+    val timeStep = 1.0 // Шаг времени симуляции (в секундах)
+    val totalTime = 10.0 // Общее время симуляции (в секундах)
 
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+    // 1. Создание массива экземпляров Human (по количеству N=2)
+    val people = listOf(
+        Human("Ivanov I.I.", 25, 1.0),
+        Human("Petrov P.P.", 30, 1.5)
+    )
+
+    // Вывод на транслите для чистой консоли
+    println("--- SIMULATION OF MOVEMENT (Random Walk) ---")
+
+    var currentTime = 0.0
+
+    // 2. Основной цикл "времени"
+    while (currentTime < totalTime) {
+        println("\n[Time: ${currentTime.toInt() + 1} sec.]")
+
+        // Заставляем каждого Human ходить
+        people.forEach { person ->
+            person.move(timeStep)
+        }
+
+        currentTime += timeStep
     }
+
+    // Вывод на транслите
+    println("\n--- SIMULATION FINISHED ---")
 }
