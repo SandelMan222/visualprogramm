@@ -1,34 +1,35 @@
 package org.example
 
 import kotlin.random.Random
+import kotlin.math.*
 
-// 1. Класс должен быть open для наследования
+// Класс Human реализует интерфейс Movable
 open class Human(
     protected val fullName: String,
-    private val age: Int,
-    protected var currentSpeed: Double,
+    // Заменяем private val age: Int, на публичный для упрощения:
+    val age: Int,
+    // var currentSpeed теперь будет с ручной логикой set:
+    currentSpeed: Double,
     protected var x: Double = 0.0,
-    protected var y: Double = 0.0      // 2. Protected для доступа в классе Driver
-) {
+    protected var y: Double = 0.0
+) : Movable {
 
-    // ... (Геттеры и Сеттеры остаются без изменений) ...
+    // Свойство currentSpeed (protected) с ручным сеттером для проверки >= 0
+    protected var currentSpeed: Double = currentSpeed
+        set(value) {
+            if (value >= 0) {
+                field = value
+            }
+        }
 
-    // 3. Метод move() должен быть open для переопределения
-    open fun move(timeStep: Double) {
-        // Random Walk: Направление (угол) выбирается случайно
+    // Метод move()
+    override fun move(timeStep: Double) {
+        // ... (код движения Random Walk без изменений) ...
         val randomAngle = Random.nextDouble(0.0, 360.0)
-
-        // Расстояние, пройденное за шаг: Distance = Speed * Time
-        val distance = currentSpeed * timeStep
-
-        // Преобразование угла в радианы
+        val distance = this.currentSpeed * timeStep // Используем this.currentSpeed
         val radians = Math.toRadians(randomAngle)
-
-        // Рассчитываем изменение координат
         val dx = distance * Math.cos(radians)
         val dy = distance * Math.sin(radians)
-
-        // Обновляем координаты
         x += dx
         y += dy
 
