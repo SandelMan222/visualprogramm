@@ -19,7 +19,7 @@ fun main() {
     while (currentTime < totalTime) {
         println("\n[Time: ${currentTime.toInt() + 1} sec.]")
 
-        // Заставляем каждого Human ходить
+        // ходим
         people.forEach { person ->
             person.move(timeStep)
         }

@@ -12,7 +12,7 @@ class Human(
 ) {
 
 
-    // Геттеры (Методы для получения значений private-свойств)
+    // Геттеры
 
     fun getFullName(): String = fullName
     fun getAge(): Int = age
@@ -20,7 +20,7 @@ class Human(
     fun getX(): Double = x
     fun getY(): Double = y
 
-    // Сеттеры (Методы для изменения private-свойств)
+    // Сеттеры
     fun setCurrentSpeed(newSpeed: Double) {
         if (newSpeed >= 0) {
             currentSpeed = newSpeed
