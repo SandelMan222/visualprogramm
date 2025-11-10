@@ -1,4 +1,4 @@
-package org.example // Обязательный пакет, чтобы код работал
+package org.example
 
 fun main() {
     val groupNumber = 2
@@ -11,8 +11,7 @@ fun main() {
         Human("Petrov P.P.", 30, 1.5)
     )
 
-    // Вывод на транслите для чистой консоли
-    println("--- SIMULATION OF MOVEMENT (Random Walk) ---")
+    println("SIMULATION OF MOVEMENT (Random Walk)")
 
     var currentTime = 0.0
 
@@ -28,6 +27,6 @@ fun main() {
         currentTime += timeStep
     }
 
-    // Вывод на транслите
-    println("\n--- SIMULATION FINISHED ---")
+
+    println("\nSIMULATION FINISHED ")
 }
