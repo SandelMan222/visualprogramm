@@ -11,7 +11,7 @@ fun main() {
         Human("Petrov P.P.", 30, 1.5)
     )
 
-    println("SIMULATION OF MOVEMENT (Random Walk)")
+    println("SIMULATION DVIJENIA (Random Walk)")
 
     var currentTime = 0.0
 
